@@ -1,4 +1,4 @@
-#!/usr/bin/pyhton3
+#!/usr/bin/env pyhton3
 
 from typing import List, TypeVar
 from flask import request
