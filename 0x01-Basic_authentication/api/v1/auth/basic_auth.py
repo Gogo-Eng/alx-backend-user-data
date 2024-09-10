@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Basic authentication module for the API
 """
+from typing import TypeVar
+from models.user import User
 from api.v1.auth.auth import Auth  # type: ignore
 import base64
 
@@ -55,3 +57,20 @@ class BasicAuth(Auth):
                 return(None, None)
 
         return(None, None)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str
+            ) -> TypeVar('User'):  # type: ignore
+
+        if user_email is None or type(user_email) is not str:
+            return None
+        if user_pwd is None or type(user_pwd) is not str:
+            return None
+
+        users = User.search({'email': user_email})
+        if users or len(users) > 0:
+            user = users[0]
+            if not user.is_valid_password(user_pwd):
+                return None
+            return user
+        return None
