@@ -29,7 +29,7 @@ class Auth():
                 if excluded_path.startswith(excluded_paths[:-1]):
                     return False
 
-        return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """return the Authorization header from the incoming HTTP request
