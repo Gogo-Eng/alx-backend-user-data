@@ -2,11 +2,11 @@
 
 """Route module for the Session authentication
 """
-from api.v1.views import app_views  # type: ignore
+import os
 from typing import Tuple
 from flask import Flask, jsonify, request
 from models.user import User  # type: ignore
-import os
+from api.v1.views import app_views  # type: ignore
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
