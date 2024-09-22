@@ -4,7 +4,7 @@
 """
 import os
 from typing import Tuple
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, abort, request
 from models.user import User  # type: ignore
 from api.v1.views import app_views  # type: ignore
 
@@ -42,3 +42,16 @@ def login() -> Tuple[str, int]:
     response.set_cookie(os.getenv("SESSION_NAME"), session_id)
 
     return response
+
+
+@app_views.route(
+        '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ DELETE /api/v1/auth_session/logout
+    Return:
+      - an empty json object
+    """
+    from api.v1.app import auth  # type: ignore
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
