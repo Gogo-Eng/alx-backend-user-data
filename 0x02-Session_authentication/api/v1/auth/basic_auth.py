@@ -3,7 +3,7 @@
 """
 import base64
 from typing import TypeVar, Tuple
-from models.user import User
+from models.user import User  # type: ignore
 from api.v1.auth.auth import Auth  # type: ignore
 
 
