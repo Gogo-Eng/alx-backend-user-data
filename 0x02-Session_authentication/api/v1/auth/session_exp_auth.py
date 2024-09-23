@@ -45,6 +45,7 @@ class SessionExpAuth(SessionAuth):
                 if 'created_at' not in value:
                     return None
             return None
+        return None
         
         created_at = value.get('created_at')
         session_age = datetime.datetime.now() - created_at
