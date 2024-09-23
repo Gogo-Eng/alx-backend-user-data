@@ -37,10 +37,10 @@ class SessionExpAuth(SessionAuth):
         """Retrieves the User id of the user associated
         with a given session id
         """
-        if not self.user_id_by_session_id[session_id]:
+        if not session_id:
             return None
         
-        if not session_id:
+        if not self.user_id_by_session_id[session_id]:
             return None
         
         if session_id in self.user_id_by_session_id:
