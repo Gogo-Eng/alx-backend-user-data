@@ -37,7 +37,7 @@ class SessionExpAuth(SessionAuth):
         """Retrieves the User id of the user associated
         with a given session id
         """
-        if session_id not in  self.user_id_by_session_id:
+        if session_id not in self.user_id_by_session_id:
             return None
 
         value = self.user_id_by_session_id.get(session_id)
@@ -45,8 +45,9 @@ class SessionExpAuth(SessionAuth):
             return None
         if self.session_duration <= 0:
             return value['user_id']
-        if not value['created_at']:
-            return None
+        if session_id in self.user_id_by_session_id:
+            if not value['created_at']:
+                return None
 
         created_at = value.get('created_at')
         session_age = datetime.datetime.now() - created_at
