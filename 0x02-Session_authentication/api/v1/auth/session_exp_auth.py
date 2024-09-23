@@ -46,7 +46,7 @@ class SessionExpAuth(SessionAuth):
         if self.session_duration <= 0:
             return value['user_id']
         if session_id in self.user_id_by_session_id:
-            if not value['created_at']:
+            if 'created_at' not in value:
                 return None
 
         created_at = value.get('created_at')
