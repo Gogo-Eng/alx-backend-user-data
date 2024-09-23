@@ -9,7 +9,7 @@ from flask_cors import (CORS, cross_origin)
 from api.v1.auth.auth import Auth  # type: ignore
 from api.v1.auth.basic_auth import BasicAuth  # type: ignore
 from api.v1.auth.session_auth import SessionAuth  # type: ignore
-import os
+from api.v1.auth.session_exp_auth import SessionExpAuth  # type: ignore
 
 
 app = Flask(__name__)
@@ -28,6 +28,8 @@ if auth_type == 'basic_auth':
 if auth_type == 'session_auth':
     auth = SessionAuth()
 
+if auth_type == 'session_exp_auth':
+    auth = SessionExpAuth()
 
 @app.errorhandler(404)
 def not_found(error) -> str:
