@@ -13,11 +13,16 @@ from api.v1.auth.session_auth import SessionAuth  # type: ignore
 
 
 class SessionExpAuth(SessionAuth):
-    """class for the expiration date to a session id"""
+    """class for the expiration date to a session id
+    """
     def __init__(self):
+        """initializes a new SessionExpAuth instance
+        """
         self.session_duration = int(os.getenv("SESSION_DURATION", '0'))
 
     def create_session(self, user_id=None):
+        """Creates a session id for users
+        """
         session_id = super().create_session(user_id)
         if not session_id:
             return None
@@ -29,6 +34,9 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
+        """Retrieves the User id of the user associated
+        with a given session id
+        """
         if not session_id:
             return None
 
