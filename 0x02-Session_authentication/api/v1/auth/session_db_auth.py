@@ -37,8 +37,10 @@ class SessionDBAuth(SessionExpAuth):
         if not session_id:
             return
 
-        session = UserSession.search({'session_id': session_id})
-
+        try:
+            session = UserSession.search({'session_id': session_id})
+        except Exception:
+            return 
         if not session:
             return
         session_info = session[0]
