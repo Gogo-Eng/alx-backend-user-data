@@ -43,6 +43,9 @@ class SessionDBAuth(SessionExpAuth):
             return
         session_info = session[0]
 
+        if len(session) <= 0:
+            return None
+
         session_age = datetime.now() - session_info.created_at
 
         if session_age > timedelta(seconds=self.session_duration):
