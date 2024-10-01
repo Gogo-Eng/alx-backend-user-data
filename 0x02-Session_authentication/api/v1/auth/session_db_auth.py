@@ -61,5 +61,5 @@ class SessionDBAuth(SessionExpAuth):
         if not session or len(session) <= 0:
             return False
         if session_id:
-            del session[0]
+            session[0].remove()
             return True
