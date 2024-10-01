@@ -35,18 +35,15 @@ class SessionDBAuth(SessionExpAuth):
         a given session id.
         """
         if not session_id:
-            return
+            return None
 
         try:
             session = UserSession.search({'session_id': session_id})
         except Exception:
-            return 
-        if not session:
-            return
-        session_info = session[0]
-
-        if len(session) <= 0:
             return None
+        if not session:
+            return None
+        session_info = session[0]
 
         session_age = datetime.now() - session_info.created_at
 
