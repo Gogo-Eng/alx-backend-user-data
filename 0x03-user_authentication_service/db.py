@@ -47,7 +47,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: str) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Find an already existing user
 
         Args:
