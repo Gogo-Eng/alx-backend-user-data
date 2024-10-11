@@ -69,16 +69,16 @@ class DB:
             raise NoResultFound()
         return result
 
-    def update_user(self, id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Update the atttribute of an already existing user
 
         Args:
             id (int): the existing user's id
         Returns:
-            User: none
+            None: This method does not return any value
         """
         if kwargs:
-            user = self.find_user_by(id=id)
+            user = self.find_user_by(id=user_id)
             for key, value in kwargs.items():
                 if hasattr(user, key):
                     setattr(user, key, value)
