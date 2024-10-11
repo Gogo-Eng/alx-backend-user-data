@@ -70,6 +70,13 @@ class DB:
         return result
 
     def update_user(self, id: int, **kwargs) -> None:
+        """Update the atttribute of an already existing user
+
+        Args:
+            id (int): the existing user's id
+        Returns:
+            User: none
+        """
         if kwargs:
             user = self.find_user_by(id=id)
             for key, value in kwargs.items():
@@ -77,5 +84,5 @@ class DB:
                     setattr(user, key, value)
                 else:
                     raise ValueError
-        
+
         self._session.commit()
