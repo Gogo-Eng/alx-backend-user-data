@@ -20,6 +20,9 @@ def _hash_password(password: str) -> bytes:
 
     return hashed_password
 
+def _generate_uuid() -> str:
+    unique_id = str(uuid4())
+    return unique_id
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -46,6 +49,3 @@ class Auth:
         except Exception:
             return False
 
-    def _generate_uuid(self) -> str:
-        unique_id = str(uuid4())
-        return unique_id
