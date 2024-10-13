@@ -5,6 +5,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+from uuid import uuid4
 
 """
 Hashing and verifying passwords
@@ -44,3 +45,7 @@ class Auth:
             return check
         except Exception:
             return False
+
+    def _generate_uuid(self) -> str:
+        unique_id = str(uuid4())
+        return unique_id
