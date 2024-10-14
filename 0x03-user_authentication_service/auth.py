@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Hashing and verifying passwords
+"""
 
 import bcrypt
 from db import DB
@@ -6,10 +9,6 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from uuid import uuid4
-
-"""
-Hashing and verifying passwords
-"""
 
 
 def _hash_password(password: str) -> bytes:
@@ -37,7 +36,7 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """func doc str"""
+        """ registers users """
         try:
             user = self._db.find_user_by(email=email)
             raise ValueError(f"User {email} already exists.")
@@ -96,7 +95,7 @@ class Auth:
             raise ValueError("User DNE")
 
     def update_password(self, reset_token: str, password: str) -> None:
-        """updates users password"""
+        """ updates users password """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
