@@ -13,6 +13,7 @@ Hashing and verifying passwords
 
 
 def _hash_password(password: str) -> bytes:
+    """ returns a passwd hash """
     password_bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
 
@@ -22,6 +23,7 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid() -> str:
+    """ returns a uuid4 str """
     unique_id = str(uuid4())
     return unique_id
 
@@ -31,9 +33,11 @@ class Auth:
     """
 
     def __init__(self):
+        """ initiallize object """
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
+        """func doc str"""
         try:
             user = self._db.find_user_by(email=email)
             raise ValueError(f"User {email} already exists.")
@@ -43,6 +47,7 @@ class Auth:
             return new_user
 
     def valid_login(self, email: str, password: str) -> bool:
+        """ validates credentials """
         try:
             user = self._db.find_user_by(email=email)
             byte_password = password.encode('utf-8')
@@ -52,6 +57,7 @@ class Auth:
             return False
 
     def create_session(self, email: str) -> str:
+        """ creates a new session for user with email """
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
@@ -61,6 +67,7 @@ class Auth:
         return session_id
 
     def get_user_from_session_id(self, session_id: str) -> User:
+        """ gets user by session_id """
         if not session_id:
             return None
         else:
@@ -71,6 +78,7 @@ class Auth:
                 return None
 
     def destroy_session(self, user_id: int) -> None:
+        """ removes user's session_id """
         try:
             user = self._db.find_user_by(id=user_id)
             self._db.update_user(user_id, session_id=None)
@@ -78,6 +86,7 @@ class Auth:
             return None
 
     def get_reset_password_token(self, email: str) -> str:
+        """ updates a users reset token field """
         try:
             user = self._db.find_user_by(email=email)
             token = _generate_uuid()
