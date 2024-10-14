@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""A simple Flask app with user authentication features.
+"""
 from flask import abort, Flask, jsonify, request, redirect
 from auth import Auth
 
@@ -10,11 +12,13 @@ AUTH = Auth()
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def payload():
+    """root route"""
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
+    """ handles credentials """
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -27,6 +31,7 @@ def users():
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
+    """ handles credentials """
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -41,6 +46,7 @@ def login():
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
+    """ handles session deletion """
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(403)
@@ -53,6 +59,7 @@ def logout():
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
+    """profile route"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
@@ -62,6 +69,7 @@ def profile():
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
+    """ returns a token that allows passwd reset """
     email = request.form.get('email')
     try:
         token = AUTH.get_reset_password_token(email)
@@ -72,6 +80,7 @@ def get_reset_password_token():
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
+    """ updates a user's password """
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
