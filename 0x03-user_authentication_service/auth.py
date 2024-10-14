@@ -86,7 +86,7 @@ class Auth:
         except NoResultFound:
             raise ValueError("User DNE")
 
-    def update_password(self, reset_token, password) -> None:
+    def update_password(self, reset_token: str, password: str) -> None:
         """updates users password"""
         try:
             user = self._db.find_user_by(reset_token=reset_token)
